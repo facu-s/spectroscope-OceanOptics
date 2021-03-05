@@ -53,26 +53,26 @@ def create_app(configfile=None):
 
         if request.method == 'POST':
             if form.validate_on_submit():
-                # spectro_pointer_config = {}
-                #spectro_pointer_config['use_raspberry']             = form.integration_time.data
-                #spectro_pointer_config['correct_vertical_camera']   = form.integration_factor.data
-                #spectro_pointer_config['correct_horizontal_camera'] = form.threshold.data
-                print("INTEGRATION TIME",form.integration_time.data)
-                print("INTEGRATION FACTOR",form.integration_factor.data)
-                print("THRESHOLD",form.threshold.data)
+                spectro_scope_config = {}
+                spectro_scope_config['integration_time']     = form.integration_time.data
+                spectro_scope_config['integration_factor']   = form.integration_factor.data
+                spectro_scope_config['threshold']            = form.threshold.data
+                #print("INTEGRATION TIME",form.integration_time.data)
+                #print("INTEGRATION FACTOR",form.integration_factor.data)
+                #print("THRESHOLD",form.threshold.data)
 
-                # with lock:
-                #     set_sp_config(app,**spectro_pointer_config)
-                #     update_params(app,set_camera_attr_en=True)
+                with lock:
+                    set_spectro_scope(app,**spectro_scope_config)
 
             return redirect(url_for('set_config_spectrometer'))
+
         else:
-            print("INTEGRATION TIME",form.integration_time.data)
-            print("INTEGRATION FACTOR",form.integration_factor.data)
-            print("THRESHOLD",form.threshold.data)
-            form.integration_time.render_kw     = {'value':2000}#get_sp_config('USE_RASPBERRY',app)}
-            form.integration_factor.render_kw   = {'value':2000}#get_sp_config('CORRECT_VERTICAL_CAMERA',app)}
-            form.threshold.render_kw            = {'value':2000}#get_sp_config('CORRECT_HORIZONTAL_CAMERA',app)}
+            #print("INTEGRATION TIME",form.integration_time.data)
+            #print("INTEGRATION FACTOR",form.integration_factor.data)
+            #print("THRESHOLD",form.threshold.data)
+            form.integration_time.render_kw     = get_spectro_scope('integration_time',app)
+            form.integration_factor.render_kw   = get_spectro_scope('integration_factor',app)
+            form.threshold.render_kw            = get_spectro_scope('threshold',app)
 
             form.integration_time.label         = 'INTEGRATION TIME:'
             form.integration_factor.label       = 'INTEGRATION FACTOR:'
