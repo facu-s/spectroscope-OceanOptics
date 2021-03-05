@@ -7,7 +7,7 @@ from flask import render_template
 from flask_bootstrap import Bootstrap
 from flask import request, redirect
 #from flask_appconfig import AppConfig
-#from config import *
+from config import *
 from .forms import ConfigForm
 from time import sleep
 from detector3 import Detector
