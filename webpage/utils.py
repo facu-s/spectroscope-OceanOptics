@@ -1,11 +1,18 @@
-from config import *
+#from config import *
 import sqlite3
 from flask import g
 
+<<<<<<< HEAD
 DATABASE = './static/spectroscope.db'
 
 def connect_db():
     return sqlite3.connect('static/spectroscope.db')
+=======
+DATABASE = './webpage/static/sp_config.db'
+
+def connect_db():
+    return sqlite3.connect(DATABASE)
+>>>>>>> 6b21ae7e84d871bc21c7c8789e1d2ffa76037d9e
 
 def delete_db(app):
 
